@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (((TextView) view).getText().equals("Fundamental") || ((TextView) view).getText().equals("Médio")) {
+                    cleanFieldsFormacao();
                     anoFormaturaEt.setVisibility(View.VISIBLE);
                     anoConclusaoEt.setVisibility(View.GONE);
                     instituicaoEt.setVisibility(View.GONE);
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     orientadorEt.setVisibility(View.GONE);
                 }
                 if (((TextView) view).getText().equals("Graduação") || ((TextView) view).getText().equals("Especialização")) {
+                    cleanFieldsFormacao();
                     anoFormaturaEt.setVisibility(View.GONE);
                     anoConclusaoEt.setVisibility(View.VISIBLE);
                     instituicaoEt.setVisibility(View.VISIBLE);
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     orientadorEt.setVisibility(View.GONE);
                 }
                 if (((TextView) view).getText().equals("Mestrado") || ((TextView) view).getText().equals("Doutorado")) {
+                    cleanFieldsFormacao();
                     anoFormaturaEt.setVisibility(View.GONE);
                     anoConclusaoEt.setVisibility(View.VISIBLE);
                     instituicaoEt.setVisibility(View.VISIBLE);
@@ -98,6 +101,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    private void cleanFieldsFormacao() {
+        anoFormaturaEt.setText("");
+        anoConclusaoEt.setText("");
+        instituicaoEt.setText("");
+        tituloMonografiaEt.setText("");
+        orientadorEt.setText("");
+    }
+
 
     private void checked() {
         if (celularCk.isChecked()) {
