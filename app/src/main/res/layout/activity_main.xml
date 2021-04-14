@@ -162,7 +162,6 @@
             android:hint="@string/ano_de_formatura"
             android:ems="10"
             android:inputType="date"
-            android:visibility="gone"
             android:padding="5dp"
             android:layout_margin="5dp" />
 
@@ -217,7 +216,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/vagas_de_interesse"
             android:ems="10"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:padding="5dp"
             android:layout_margin="5dp" />
 

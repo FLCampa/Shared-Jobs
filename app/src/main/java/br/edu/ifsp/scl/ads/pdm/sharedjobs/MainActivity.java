@@ -16,66 +16,41 @@ import android.widget.Toast;
 
 import java.util.Arrays;
 
+import br.edu.ifsp.scl.ads.pdm.sharedjobs.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
 
-    private EditText nomeEt;
-    private EditText emailEt;
-    private CheckBox emailCk;
-    private EditText telefoneEt;
-    private RadioGroup telefoneRg;
-    private RadioButton comercialRb;
-    private RadioButton residencialRb;
-    private CheckBox celularCk;
-    private EditText celularEt;
-    private RadioGroup sexoRg;
-    private RadioButton masculinoRb;
-    private RadioButton femininoRb;
-    private EditText dataNascimentoEt;
-    private Spinner formacaoSp;
-    private EditText anoFormaturaEt;
-    private EditText anoConclusaoEt;
-    private EditText instituicaoEt;
-    private EditText tituloMonografiaEt;
-    private EditText orientadorEt;
-    private EditText vagasInteresseEt;
-    private Button salvarBt;
-    private Button limparBt;
+    private ActivityMainBinding activityMainBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityMainBinding.getRoot());
 
-        bindViews();
-
-        formacaoSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        activityMainBinding.formacaoSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (((TextView) view).getText().equals("Fundamental") || ((TextView) view).getText().equals("Médio")) {
+                String itemSelected = ((TextView) view).getText().toString();
+                if (itemSelected.equals("Fundamental") || itemSelected.equals("Médio")) {
                     cleanFieldsFormacao();
-                    anoFormaturaEt.setVisibility(View.VISIBLE);
-                    anoConclusaoEt.setVisibility(View.GONE);
-                    instituicaoEt.setVisibility(View.GONE);
-                    tituloMonografiaEt.setVisibility(View.GONE);
-                    orientadorEt.setVisibility(View.GONE);
+                    activityMainBinding.anoFormaturaEt.setVisibility(View.VISIBLE);
+                    activityMainBinding.anoConclusaoEt.setVisibility(View.GONE);
+                    activityMainBinding.instituicaoEt.setVisibility(View.GONE);
+                    activityMainBinding.tituloMonografiaEt.setVisibility(View.GONE);
+                    activityMainBinding.orientadorEt.setVisibility(View.GONE);
                 }
-                if (((TextView) view).getText().equals("Graduação") || ((TextView) view).getText().equals("Especialização")) {
+                if (itemSelected.equals("Graduação") || itemSelected.equals("Especialização")) {
                     cleanFieldsFormacao();
-                    anoFormaturaEt.setVisibility(View.GONE);
-                    anoConclusaoEt.setVisibility(View.VISIBLE);
-                    instituicaoEt.setVisibility(View.VISIBLE);
-                    tituloMonografiaEt.setVisibility(View.GONE);
-                    orientadorEt.setVisibility(View.GONE);
+                    activityMainBinding.anoFormaturaEt.setVisibility(View.GONE);
+                    activityMainBinding.anoConclusaoEt.setVisibility(View.VISIBLE);
+                    activityMainBinding.instituicaoEt.setVisibility(View.VISIBLE);
                 }
-                if (((TextView) view).getText().equals("Mestrado") || ((TextView) view).getText().equals("Doutorado")) {
+                if (itemSelected.equals("Mestrado") || itemSelected.equals("Doutorado")) {
                     cleanFieldsFormacao();
-                    anoFormaturaEt.setVisibility(View.GONE);
-                    anoConclusaoEt.setVisibility(View.VISIBLE);
-                    instituicaoEt.setVisibility(View.VISIBLE);
-                    tituloMonografiaEt.setVisibility(View.VISIBLE);
-                    orientadorEt.setVisibility(View.VISIBLE);
+                    activityMainBinding.tituloMonografiaEt.setVisibility(View.VISIBLE);
+                    activityMainBinding.orientadorEt.setVisibility(View.VISIBLE);
                 }
-
             }
 
             @Override
@@ -83,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
     }
 
@@ -103,31 +77,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cleanFieldsFormacao() {
-        anoFormaturaEt.setText("");
-        anoConclusaoEt.setText("");
-        instituicaoEt.setText("");
-        tituloMonografiaEt.setText("");
-        orientadorEt.setText("");
+        activityMainBinding.anoFormaturaEt.setText("");
+        activityMainBinding.anoConclusaoEt.setText("");
+        activityMainBinding.instituicaoEt.setText("");
+        activityMainBinding.tituloMonografiaEt.setText("");
+        activityMainBinding.orientadorEt.setText("");
     }
 
 
     private void checked() {
-        if (celularCk.isChecked()) {
-            celularEt.setVisibility(View.VISIBLE);
-        } else if (!celularCk.isChecked()) {
-            celularEt.setVisibility(View.GONE);
-            celularEt.setText("");
+        if (activityMainBinding.celularCk.isChecked()) {
+            activityMainBinding.celularEt.setVisibility(View.VISIBLE);
+        } else if (!activityMainBinding.celularCk.isChecked()) {
+            activityMainBinding.celularEt.setVisibility(View.GONE);
+            activityMainBinding.celularEt.setText("");
         }
     }
 
     private void saveForm() {
         StringBuffer buffer = new StringBuffer();
 
-        buffer.append("Nome: ").append(nomeEt.getText()).append("\n");
-        buffer.append("Email: ").append(emailEt.getText()).append("\n");
+        buffer.append("Nome: ").append(activityMainBinding.nomeEt.getText()).append("\n");
+        buffer.append("Email: ").append(activityMainBinding.emailEt.getText()).append("\n");
 
         //comercial/residencial
-        switch (telefoneRg.getCheckedRadioButtonId()) {
+        switch (activityMainBinding.telefoneRg.getCheckedRadioButtonId()) {
             case R.id.comercialRb:
                 buffer.append("Telefone comercial: ");
                 break;
@@ -135,15 +109,15 @@ public class MainActivity extends AppCompatActivity {
                 buffer.append("Telefone residencial: ");
                 break;
         }
-        buffer.append(telefoneEt.getText()).append("\n");
+        buffer.append(activityMainBinding.telefoneEt.getText()).append("\n");
 
         //Checkbox celular
-        if(celularCk.isChecked()){
-            buffer.append("Celular: ").append(celularEt.getText()).append("\n");
+        if(activityMainBinding.celularCk.isChecked()){
+            buffer.append("Celular: ").append(activityMainBinding.celularEt.getText()).append("\n");
         }
 
         //masculino/feminino
-        switch (sexoRg.getCheckedRadioButtonId()) {
+        switch (activityMainBinding.sexoRg.getCheckedRadioButtonId()) {
             case R.id.masculinoRb:
                 buffer.append("Sexo: Masculino").append("\n");
                 break;
@@ -151,71 +125,48 @@ public class MainActivity extends AppCompatActivity {
                 buffer.append("Sexo: Feminino").append("\n");
                 break;
         }
-        buffer.append("Data de nascimento: ").append(dataNascimentoEt.getText()).append("\n");
+        buffer.append("Data de nascimento: ").append(activityMainBinding.dataNascimentoEt.getText()).append("\n");
 
-        buffer.append("Formação: ").append(((TextView) formacaoSp.getSelectedView()).getText()).append("\n");
+        buffer.append("Formação: ").append(((TextView) activityMainBinding.formacaoSp.getSelectedView()).getText()).append("\n");
 
         //Spinner formacao
-        if (formacaoSp.getSelectedItemPosition() == 0 || formacaoSp.getSelectedItemPosition() == 1) {
-            buffer.append("Ano de formatura: ").append(anoFormaturaEt.getText()).append("\n");
+        int formacaoIdx = activityMainBinding.formacaoSp.getSelectedItemPosition();
+        if (formacaoIdx == 0 || formacaoIdx == 1) {
+            buffer.append("Ano de formatura: ").append(activityMainBinding.anoFormaturaEt.getText()).append("\n");
         }
-        if (formacaoSp.getSelectedItemPosition() == 2 || formacaoSp.getSelectedItemPosition() == 3) {
-            buffer.append("Ano de conclusão: ").append(anoConclusaoEt.getText()).append("\n");
-            buffer.append("Instituição: ").append(instituicaoEt.getText()).append("\n");
+        if (formacaoIdx == 2 || formacaoIdx == 3) {
+            buffer.append("Ano de conclusão: ").append(activityMainBinding.anoConclusaoEt.getText()).append("\n");
+            buffer.append("Instituição: ").append(activityMainBinding.instituicaoEt.getText()).append("\n");
         }
-        if (formacaoSp.getSelectedItemPosition() == 4 || formacaoSp.getSelectedItemPosition() == 5) {
-            buffer.append("Ano de conclusão: ").append(anoConclusaoEt.getText()).append("\n");
-            buffer.append("Instituição: ").append(instituicaoEt.getText()).append("\n");
-            buffer.append("Título de monografia: ").append(tituloMonografiaEt.getText()).append("\n");
-            buffer.append("Orientador: ").append(orientadorEt.getText()).append("\n");
+        if (formacaoIdx == 4 || formacaoIdx == 5) {
+            buffer.append("Ano de conclusão: ").append(activityMainBinding.anoConclusaoEt.getText()).append("\n");
+            buffer.append("Instituição: ").append(activityMainBinding.instituicaoEt.getText()).append("\n");
+            buffer.append("Título de monografia: ").append(activityMainBinding.tituloMonografiaEt.getText()).append("\n");
+            buffer.append("Orientador: ").append(activityMainBinding.orientadorEt.getText()).append("\n");
         }
 
-        buffer.append("Vagas de Interesse: ").append(vagasInteresseEt.getText()).append("\n");
+        buffer.append("Vagas de Interesse: ").append(activityMainBinding.vagasInteresseEt.getText()).append("\n");
         Toast.makeText(this, buffer.toString(), Toast.LENGTH_SHORT).show();
     }
 
     private void cleanForm() {
-        nomeEt.setText("");
-        emailEt.setText("");
-        emailCk.setChecked(false);
-        telefoneEt.setText("");
-        comercialRb.setChecked(true);
-        celularCk.setChecked(false);
+        activityMainBinding.nomeEt.setText("");
+        activityMainBinding.emailEt.setText("");
+        activityMainBinding.emailCk.setChecked(false);
+        activityMainBinding.telefoneEt.setText("");
+        activityMainBinding.comercialRb.setChecked(true);
+        activityMainBinding.celularCk.setChecked(false);
         checked();
-        celularEt.setText("");
-        masculinoRb.setChecked(true);
-        dataNascimentoEt.setText("");
-        formacaoSp.setSelection(0);
-        anoFormaturaEt.setText("");
-        anoConclusaoEt.setText("");
-        instituicaoEt.setText("");
-        tituloMonografiaEt.setText("");
-        orientadorEt.setText("");
-        vagasInteresseEt.setText("");
+        activityMainBinding.celularEt.setText("");
+        activityMainBinding.masculinoRb.setChecked(true);
+        activityMainBinding.dataNascimentoEt.setText("");
+        activityMainBinding.formacaoSp.setSelection(0);
+        activityMainBinding.anoFormaturaEt.setText("");
+        activityMainBinding.anoConclusaoEt.setText("");
+        activityMainBinding.instituicaoEt.setText("");
+        activityMainBinding.tituloMonografiaEt.setText("");
+        activityMainBinding.orientadorEt.setText("");
+        activityMainBinding.vagasInteresseEt.setText("");
     }
 
-    private void bindViews() {
-        nomeEt = findViewById(R.id.nomeEt);
-        emailEt = findViewById(R.id.emailEt);
-        emailCk = findViewById(R.id.emailCk);
-        telefoneEt = findViewById(R.id.telefoneEt);
-        telefoneRg = findViewById(R.id.telefoneRg);
-        comercialRb = findViewById(R.id.comercialRb);
-        residencialRb = findViewById(R.id.residencialRb);
-        celularCk = findViewById(R.id.celularCk);
-        celularEt = findViewById(R.id.celularEt);
-        sexoRg = findViewById(R.id.sexoRg);
-        masculinoRb = findViewById(R.id.masculinoRb);
-        femininoRb = findViewById(R.id.femininoRb);
-        dataNascimentoEt = findViewById(R.id.dataNascimentoEt);
-        formacaoSp = findViewById(R.id.formacaoSp);
-        anoFormaturaEt = findViewById(R.id.anoFormaturaEt);
-        anoConclusaoEt = findViewById(R.id.anoConclusaoEt);
-        instituicaoEt = findViewById(R.id.instituicaoEt);
-        tituloMonografiaEt = findViewById(R.id.tituloMonografiaEt);
-        orientadorEt = findViewById(R.id.orientadorEt);
-        vagasInteresseEt = findViewById(R.id.vagasInteresseEt);
-        salvarBt = findViewById(R.id.salvarBt);
-        limparBt = findViewById(R.id.limparBt);
-    }
 }
